@@ -38,5 +38,5 @@ out/
 
 target/
 .DS_Store
-.zip
+*.zip
 
