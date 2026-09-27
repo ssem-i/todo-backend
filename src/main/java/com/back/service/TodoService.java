@@ -5,7 +5,11 @@ import com.back.entity.TodoItem;
 import com.back.repository.TodoRepository;
 import com.back.dto.TodoRequest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -29,27 +33,42 @@ public class TodoService {
 
     public TodoItemResponse getTodo(long id) {
         TodoItem todoItem = todoRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("존재하지 않음"));
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND,
+                        "존재하지 않는 할 일입니다."));
 
         return toResponse(todoItem);
     }
 
+    @Transactional
     public TodoItemResponse editTodo(long id, String title){
         TodoItem todoItem = todoRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("존재하지 않음"));
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND,
+                        "존재하지 않는 할 일입니다."));
         todoItem.setTitle(title);
 
         return toResponse(todoItem);
     }
 
     public void deleteTodo(long id){
-        todoRepository.deleteById(id);
+        TodoItem todoItem = todoRepository.findById(id)
+                .orElseThrow(() ->
+                        new ResponseStatusException(
+                                HttpStatus.NOT_FOUND,
+                                "존재하지 않는 할 일입니다."
+                        )
+                );
+        todoRepository.delete(todoItem);
     }
 
+    @Transactional
     public TodoItemResponse changeCompletion(long id, boolean completed){
         TodoItem todoItem = todoRepository.findById(id)
                 .orElseThrow(() ->
-                        new IllegalArgumentException("존재하지 않음")
+                        new ResponseStatusException(
+                                HttpStatus.NOT_FOUND,
+                                "존재하지 않는 할 일입니다.")
                 );
         todoItem.changeCompletion(completed);
         return toResponse(todoItem);

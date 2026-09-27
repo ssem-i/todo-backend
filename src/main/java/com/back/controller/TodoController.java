@@ -3,6 +3,7 @@ package com.back.controller;
 import com.back.dto.TodoItemResponse;
 import com.back.dto.TodoRequest;
 import com.back.service.TodoService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +17,7 @@ public class TodoController {
     private final TodoService todoService;
 
     @PostMapping
-    public long addtodo(TodoRequest request) {
+    public long addtodo(@Valid @RequestBody TodoRequest request) {
         return todoService.addTodo(request);
     }
 
@@ -31,8 +32,8 @@ public class TodoController {
     }
 
     @PutMapping("/{id}")
-    public TodoItemResponse editTodo(@PathVariable long id, String title){
-        return todoService.editTodo(id, title);
+    public TodoItemResponse editTodo(@PathVariable long id, @Valid @RequestBody TodoRequest request){
+        return todoService.editTodo(id, request.getTitle());
     }
 
     @DeleteMapping("/{id}")
@@ -41,7 +42,7 @@ public class TodoController {
     }
 
     @PatchMapping("/{id}/completion")
-    public TodoItemResponse changeCompletd(@PathVariable long id, @RequestParam boolean completed){
+    public TodoItemResponse changeCompletion(@PathVariable long id, @RequestParam boolean completed){
         return todoService.changeCompletion(id, completed);
     }
 }
