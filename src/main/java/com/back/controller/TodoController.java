@@ -3,15 +3,17 @@ package com.back.controller;
 import com.back.dto.TodoItemResponse;
 import com.back.dto.TodoRequest;
 import com.back.service.TodoService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
+@RestController
+@RequiredArgsConstructor
 @RequestMapping("api/todos")
 public class TodoController {
-    private TodoService todoService;
+    private final TodoService todoService;
 
     @PostMapping
     public long addtodo(TodoRequest request) {

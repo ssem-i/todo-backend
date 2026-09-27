@@ -4,13 +4,15 @@ import com.back.dto.TodoItemResponse;
 import com.back.entity.TodoItem;
 import com.back.repository.TodoRepository;
 import com.back.dto.TodoRequest;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@RequiredArgsConstructor
 @Service
 public class TodoService {
-    private TodoRepository todoRepository;
+    private final TodoRepository todoRepository;
 
     public long addTodo(TodoRequest todoRequest){
         TodoItem todoItem = new TodoItem(todoRequest.getTitle());
