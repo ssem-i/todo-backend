@@ -31,4 +31,8 @@ public class TodoItem {
         this.completed = false;
         this.createdTime = LocalDateTime.now();
     }
+
+    public void changeCompletion(boolean completed) {
+        this.completed = completed;
+    }
 }

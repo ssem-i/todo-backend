@@ -24,17 +24,22 @@ public class TodoController {
     } // opntional
 
     @GetMapping("/{id}")
-    public TodoItemResponse getTodo(long id) {
+    public TodoItemResponse getTodo(@PathVariable long id) {
         return todoService.getTodo(id);
     }
 
     @PutMapping("/{id}")
-    public TodoItemResponse editTodo(long id, String title){
+    public TodoItemResponse editTodo(@PathVariable long id, String title){
         return todoService.editTodo(id, title);
     }
 
     @DeleteMapping("/{id}")
-    public void deletetodo(long id){
+    public void deletetodo(@PathVariable long id){
         todoService.deleteTodo(id);
+    }
+
+    @PatchMapping("/{id}/completion")
+    public TodoItemResponse changeCompletd(@PathVariable long id, @RequestParam boolean completed){
+        return todoService.changeCompletion(id, completed);
     }
 }

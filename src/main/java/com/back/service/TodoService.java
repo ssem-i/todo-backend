@@ -15,7 +15,7 @@ public class TodoService {
     public long addTodo(TodoRequest todoRequest){
         TodoItem todoItem = new TodoItem(todoRequest.getTitle());
 
-        return todoRepository.save(todoItem).getId();;
+        return todoRepository.save(todoItem).getId();
     }
 
     public List<TodoItemResponse> getTodoList(){
@@ -42,6 +42,15 @@ public class TodoService {
 
     public void deleteTodo(long id){
         todoRepository.deleteById(id);
+    }
+
+    public TodoItemResponse changeCompletion(long id, boolean completed){
+        TodoItem todoItem = todoRepository.findById(id)
+                .orElseThrow(() ->
+                        new IllegalArgumentException("존재하지 않음")
+                );
+        todoItem.changeCompletion(completed);
+        return toResponse(todoItem);
     }
 
     private TodoItemResponse toResponse(TodoItem todoItem){
