@@ -35,7 +35,7 @@ API 기본 주소: `http://localhost:8080/api/todos`
   "title": "할 일 1"
 }
 ```
-응답 Body: 생성된 할 일의 ID를 반환합니다.
+응답 Body: 생성된 할 일의 ID를 반환한다.
 
 
 #### 2. 할 일 목록 조회 (GET)
