@@ -180,20 +180,21 @@ JPA 엔티티를 API 요청과 응답에 직접 노출하지 않고, TodoRequest
 
 1. 할 일 만들기
 할 일이 생성되면 해당 할 일의 Id를 반환한다.
-![할 일 생성](images/01.png)
+![할 일 생성](src/images/01.png)
 
 2. 할 일 목록 조회
-![할 일 목록](images/02-list.png)
-![할 일 목록](images/02list-2.png)
+![할 일 목록](src/images/02-list.png)
+![할 일 목록](src/images/02list-2.png)
 3. 완료 처리
-![완료](images/03.png)
-![완료](images/03-2.png)
+![완료](src/images/03.png)
+![완료](src/images/03-2.png)
 
 4. 할 일 삭제
-![삭제](images/04.png)
+![삭제](src/images/04.png)
 
 5. 빈 제목 입력 시 400 오류
-![400](images/05-400error.png)
+
+![400](src/images/05-400error.png)
 
 6. 없는 할 일을 요청할 경우 404 오류
-![404](images/06-404error.png)
+![404](src/images/06-404error.png)
